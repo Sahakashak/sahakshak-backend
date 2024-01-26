@@ -8,6 +8,7 @@ This is the backend of our project sahakshak
 
 ### Create Case
 
+```javascript
 // Method: POST
 // Endpoint: /api/cases
 // Description: Create a new case with the provided details
@@ -26,3 +27,4 @@ This is the backend of our project sahakshak
 "timeOfCrime": "Date",
 "suspect": "String"
 }
+```
