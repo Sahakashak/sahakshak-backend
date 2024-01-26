@@ -28,3 +28,11 @@ This is the backend of our project sahakshak
 "suspect": "String"
 }
 ```
+
+### View Case
+
+```javascript
+// Method: GET
+// Endpoint: /api/cases
+// Description: You can view all the posts
+```
