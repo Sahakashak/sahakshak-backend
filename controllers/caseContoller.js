@@ -1,10 +1,38 @@
-const Case = require("../models/Case");
+const Case = require("../models/case");
 
 exports.createCase = async (req, res) => {
   try {
-    const { title, description } = req.body;
-    const newCase = await Case.create({ title, description });
-    res.status(201).json(newCase);
+    const {
+      title,
+      description,
+      name,
+      gender,
+      age,
+      location,
+      address,
+      pinCode,
+      phoneNumber,
+      email,
+      timeOfCrime,
+      suspect,
+    } = req.body;
+
+    const newCase = await Case.create({
+      title,
+      description,
+      name,
+      gender,
+      age,
+      location,
+      address,
+      pinCode,
+      phoneNumber,
+      email,
+      timeOfCrime,
+      suspect,
+    });
+
+    res.status(201).json({ message: "Case registered successfully" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
