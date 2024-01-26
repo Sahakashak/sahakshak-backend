@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+require("dotenv").config();
 const caseRoutes = require("./routes/caseRoutes");
 
 const app = express();
@@ -11,14 +12,10 @@ app.use(express.json());
 app.use("/api", caseRoutes);
 
 // Connect to MongoDB
+
 mongoose
-  .connect(
-    "mongodb+srv://<username>:<password>@<cluster>/<dbname>?retryWrites=true&w=majority",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
+  .connect(process.env.MONGO_URI)
+
   .then(() => {
     console.log("Connected to MongoDB");
   })
