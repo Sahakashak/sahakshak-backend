@@ -46,3 +46,19 @@ exports.getCases = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+exports.getCaseById = async (req, res) => {
+  try {
+    const caseId = req.params.id;
+
+    const singleCase = await Case.findById(caseId);
+
+    if (!singleCase) {
+      return res.status(404).json({ error: "Case not found" });
+    }
+
+    res.status(200).json(singleCase);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
