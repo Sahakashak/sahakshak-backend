@@ -2,11 +2,13 @@ const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
 const caseRoutes = require("./routes/caseRoutes");
+const timeoutMiddleware = require("./Middleware/timeout");
 
 const app = express();
 
 // Middleware
 app.use(express.json());
+app.use(timeoutMiddleware);
 
 // Routes
 app.use("/api", caseRoutes);
