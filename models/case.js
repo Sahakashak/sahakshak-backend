@@ -45,7 +45,6 @@ const caseSchema = new mongoose.Schema({
   },
   timeOfCrime: {
     type: Date,
-    required: true,
   },
   suspect: {
     type: String,
