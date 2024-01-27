@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 require("dotenv").config();
 const caseRoutes = require("./routes/caseRoutes");
 const timeoutMiddleware = require("./Middleware/timeout");
@@ -9,6 +10,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(timeoutMiddleware);
+app.use(cors());
 
 // Routes
 app.use("/api", caseRoutes);
