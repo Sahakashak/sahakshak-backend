@@ -10,7 +10,7 @@
     ],
 
     "functions": {
-        "api/getCases": {
+        "api/cases": {
           "memory": 512, 
           "maxDuration": 30
         }
