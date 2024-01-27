@@ -62,3 +62,21 @@ exports.getCaseById = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+exports.getCasesByPhoneNumber = async (req, res) => {
+  try {
+    const phoneNumber = req.params.phoneNumber;
+
+    const cases = await Case.find({ phoneNumber });
+
+    if (!cases || cases.length === 0) {
+      return res
+        .status(404)
+        .json({ error: "No cases found for the provided phone number" });
+    }
+
+    res.status(200).json(cases);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

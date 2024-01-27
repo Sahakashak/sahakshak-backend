@@ -6,4 +6,7 @@ router.post("/cases", caseController.createCase);
 router.get("/cases", caseController.getCases);
 router.get("/cases/:id", caseController.getCaseById);
 
+// Get cases by phone number
+router.get("/cases/phone/:phoneNumber", caseController.getCasesByPhoneNumber);
+
 module.exports = router;
