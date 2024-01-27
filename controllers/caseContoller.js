@@ -80,3 +80,22 @@ exports.getCasesByPhoneNumber = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+exports.deleteCaseById = async (req, res) => {
+  try {
+    const caseId = req.params.id;
+
+    // Check if case exists
+    const existingCase = await Case.findById(caseId);
+    if (!existingCase) {
+      return res.status(404).json({ error: "Case not found" });
+    }
+
+    // Delete the case
+    await Case.findByIdAndDelete(caseId);
+
+    res.status(200).json({ message: "Case deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

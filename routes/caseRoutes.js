@@ -8,5 +8,6 @@ router.get("/cases/:id", caseController.getCaseById);
 
 // Get cases by phone number
 router.get("/cases/phone/:phoneNumber", caseController.getCasesByPhoneNumber);
+router.delete("/cases/:id", caseController.deleteCaseById);
 
 module.exports = router;
