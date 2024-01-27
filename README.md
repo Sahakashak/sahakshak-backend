@@ -11,6 +11,7 @@ This is the backend of our project sahakshak
 | `/api/cases/:id`         | GET    | Retrieve a single case by its unique identifier | N/A          |
 | `/api/cases`             | POST   | Create a new case                               | See below    |
 | `/api/cases/phone/:phno` | GET    | Retrieve cases by phone number                  | N/A          |
+| `/api/cases/:id`         | DELETE | Delete a case by its unique identifier          | N/A          |
 
 <!-- | `/api/cases/:id` | PUT    | Update an existing case by its unique identifier | See below    |
 | `/api/cases/:id` | DELETE | Delete an existing case by its unique identifier | N/A          | -->
