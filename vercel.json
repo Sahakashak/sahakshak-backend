@@ -7,12 +7,5 @@
     "routes": [
        { "src": "/(.*)", "dest": "/app.js" }
     
-    ],
-
-    "functions": {
-        "api/cases": {
-          "memory": 512, 
-          "maxDuration": 30
-        }
-      }
+    ]
  }
