@@ -55,4 +55,8 @@ const caseSchema = new mongoose.Schema({
   },
 });
 
+caseSchema.statics.updateCaseDataById = async function (caseId, newData) {
+  await this.findByIdAndUpdate(caseId, newData, { new: true });
+};
+
 module.exports = mongoose.model("Case", caseSchema);
