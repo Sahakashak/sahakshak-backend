@@ -99,3 +99,23 @@ exports.deleteCaseById = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+exports.updateCaseData = async (req, res) => {
+  try {
+    const caseId = req.params.id;
+    const updatedData = req.body;
+
+    // Check if case exists
+    const existingCase = await Case.findById(caseId);
+    if (!existingCase) {
+      return res.status(404).json({ error: "Case not found" });
+    }
+
+    // Update the case data
+    await Case.findByIdAndUpdate(caseId, updatedData, { new: true });
+
+    res.status(200).json({ message: "Case data updated successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
