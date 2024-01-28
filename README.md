@@ -55,3 +55,28 @@ This is the backend of our project sahakshak
   "status": "String (Wanted/Arrested/Released)"
 }
 ```
+
+## Evidence Routes
+
+| Endpoint            | Method | Description                                | Request Body |
+| ------------------- | ------ | ------------------------------------------ | ------------ |
+| `/api/evidence`     | POST   | Create a new evidence record               | See below    |
+| `/api/evidence`     | GET    | Retrieve all evidence stored in the system | N/A          |
+| `/api/evidence/:id` | GET    | Retrieve a single evidence by ID           | N/A          |
+| `/api/evidence/:id` | PUT    | Update an evidence by ID                   | See below    |
+| `/api/evidence/:id` | DELETE | Delete an evidence by ID                   | N/A          |
+
+### Request Body for Creating an Evidence Record
+
+```json
+{
+  "caseId": "MongoDB ObjectID of the related case",
+  "type": "String",
+  "description": "String",
+  "locationFound": "String",
+  "foundBy": "String",
+  "foundOn": "Date and time in ISO 8601 format (e.g., 2024-01-28T12:00:00Z)",
+  "collectedBy": "String",
+  "collectedOn": "Date and time in ISO 8601 format (e.g., 2024-01-28T14:30:00Z)"
+}
+```
