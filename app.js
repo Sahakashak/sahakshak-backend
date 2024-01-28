@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
 const caseRoutes = require("./routes/caseRoutes");
+const criminalRoutes = require("./routes/criminalRoutes.js");
 const timeoutMiddleware = require("./Middleware/timeout");
 
 const app = express();
@@ -14,6 +15,7 @@ app.use(cors());
 
 // Routes
 app.use("/api", caseRoutes);
+app.use("/api", criminalRoutes);
 
 app.get("/", (req, res) => {
   res.send("API working");
