@@ -32,3 +32,26 @@ This is the backend of our project sahakshak
   "suspect": "String"
 }
 ```
+
+## Criminal Routes
+
+| Endpoint             | Method | Description                                 | Request Body |
+| -------------------- | ------ | ------------------------------------------- | ------------ |
+| `/api/criminals`     | POST   | Create a new criminal record                | See below    |
+| `/api/criminals`     | GET    | Retrieve all criminals stored in the system | N/A          |
+| `/api/criminals/:id` | GET    | Retrieve a single criminal by ID            | N/A          |
+| `/api/criminals/:id` | PUT    | Update a criminal by ID                     | See below    |
+| `/api/criminals/:id` | DELETE | Delete a criminal by ID                     | N/A          |
+
+### Request Body for Creating a Criminal
+
+```json
+{
+  "name": "String",
+  "gender": "String (Male/Female/Other)",
+  "age": "Number",
+  "address": "String",
+  "crime": "String",
+  "status": "String (Wanted/Arrested/Released)"
+}
+```
