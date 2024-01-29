@@ -9,6 +9,10 @@ const caseSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  location: {
+    type: String,
+    required: false,
+  },
   status: {
     type: String,
     enum: ["Open", "Pending", "Closed"],
