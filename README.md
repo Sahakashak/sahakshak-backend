@@ -1,6 +1,6 @@
 # sahakshak-backend
 
-This is the backend of our project sahakshak
+This is the backend of our project sahakshak. Sahakshak is a service for police department for case management.
 
 ## API Documentation
 
