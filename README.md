@@ -56,15 +56,14 @@ This is the backend of our project sahakshak. Sahakshak is a service for police 
 }
 ```
 
-## Evidence Routes
-
-| Endpoint            | Method | Description                                | Request Body |
-| ------------------- | ------ | ------------------------------------------ | ------------ |
-| `/api/evidence`     | POST   | Create a new evidence record               | See below    |
-| `/api/evidence`     | GET    | Retrieve all evidence stored in the system | N/A          |
-| `/api/evidence/:id` | GET    | Retrieve a single evidence by ID           | N/A          |
-| `/api/evidence/:id` | PUT    | Update an evidence by ID                   | See below    |
-| `/api/evidence/:id` | DELETE | Delete an evidence by ID                   | N/A          |
+| Endpoint                     | Method | Description                                | Request Body |
+| ---------------------------- | ------ | ------------------------------------------ | ------------ |
+| `/api/evidence`              | POST   | Create a new evidence record               | See below    |
+| `/api/evidence`              | GET    | Retrieve all evidence stored in the system | N/A          |
+| `/api/evidence/:id`          | GET    | Retrieve a single evidence by ID           | N/A          |
+| `/api/evidence/:id`          | PUT    | Update an evidence by ID                   | See below    |
+| `/api/evidence/:id`          | DELETE | Delete an evidence by ID                   | N/A          |
+| `/api/evidence/case/:caseid` | GET    | Retrieve evidence records by case ID       | N/A          |
 
 ### Request Body for Creating an Evidence Record
 
