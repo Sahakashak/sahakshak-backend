@@ -17,4 +17,7 @@ router.put("/evidence/:id", evidenceController.updateEvidence);
 // Delete evidence by ID
 router.delete("/evidence/:id", evidenceController.deleteEvidence);
 
+// Retrieve evidence records by case ID
+router.get("/evidence/case/:caseId", evidenceController.getEvidenceByCaseId);
+
 module.exports = router;

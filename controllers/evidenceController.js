@@ -62,3 +62,21 @@ exports.deleteEvidence = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+// Retrieve evidence records by case ID
+exports.getEvidenceByCaseId = async (req, res) => {
+  try {
+    const caseId = req.params.caseId;
+    const evidence = await Evidence.find({ caseId: caseId });
+
+    if (!evidence || evidence.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No evidence found for the specified case ID" });
+    }
+
+    res.status(200).json(evidence);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
