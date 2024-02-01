@@ -33,6 +33,9 @@ const criminalSchema = new mongoose.Schema({
     enum: ["Wanted", "Arrested", "Released"],
     default: "Wanted",
   },
+  imageURL: {
+    type: String,
+  }
 });
 
 const Criminal = mongoose.model("Criminal", criminalSchema);
