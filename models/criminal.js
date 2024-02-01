@@ -10,6 +10,12 @@ const criminalSchema = new mongoose.Schema({
     enum: ["Male", "Female", "Other"],
     required: true,
   },
+
+  caseId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Case",
+    required: true,
+  },
   age: {
     type: Number,
     required: true,

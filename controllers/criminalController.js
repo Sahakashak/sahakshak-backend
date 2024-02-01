@@ -3,7 +3,7 @@ const Criminal = require("../models/criminal");
 // Create a new criminal
 exports.createCriminal = async (req, res) => {
   try {
-    const { name, gender, age, address, crime, status } = req.body;
+    const { name, gender, age, address, crime, status, caseId } = req.body;
 
     const newCriminal = await Criminal.create({
       name,
@@ -12,6 +12,7 @@ exports.createCriminal = async (req, res) => {
       address,
       crime,
       status,
+      caseId,
     });
 
     res.status(201).json(newCriminal);
@@ -79,6 +80,24 @@ exports.deleteCriminal = async (req, res) => {
     }
 
     res.status(200).json({ message: "Criminal deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Retrieve criminals by case ID
+exports.getCriminalsByCaseId = async (req, res) => {
+  try {
+    const caseId = req.params.caseId;
+    const criminals = await Criminal.find({ caseId: caseId });
+
+    if (!criminals || criminals.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No criminals found for the specified case ID" });
+    }
+
+    res.status(200).json(criminals);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

@@ -16,5 +16,7 @@ router.put("/criminals/:id", criminalController.updateCriminal);
 
 // Delete a criminal by ID
 router.delete("/criminals/:id", criminalController.deleteCriminal);
+// Retrieve criminals by case ID
+router.get("/criminals/case/:caseId", criminalController.getCriminalsByCaseId);
 
 module.exports = router;
