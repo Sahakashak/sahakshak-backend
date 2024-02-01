@@ -1,15 +1,18 @@
 const { initializeApp } = require("firebase/app");
-const { getStorage, ref, getDownloadURL, uploadBytesResumable } = require("firebase/storage");
+const {
+  getStorage,
+  ref,
+  getDownloadURL,
+  uploadBytesResumable,
+} = require("firebase/storage");
 const multer = require("multer");
 const config = require("../config/firebase.config");
 const Criminal = require("../models/criminal");
-
 
 //Initializing a firebase app
 initializeApp(config.firebaseConfig);
 
 const storage = getStorage();
-
 
 // Create a new criminal
 exports.createCriminal = async (req, res) => {
@@ -19,11 +22,18 @@ exports.createCriminal = async (req, res) => {
 
     const dateTime = giveCurrentDateTime();
 
-    const storageRef = ref(storage, `files/${file.originalname + "-" +dateTime }`);
+    const storageRef = ref(
+      storage,
+      `files/${file.originalname + "-" + dateTime}`
+    );
     const metadata = {
       contentType: file.mimetype,
     };
-    const snapshot = await uploadBytesResumable(storageRef, file.buffer, metadata);
+    const snapshot = await uploadBytesResumable(
+      storageRef,
+      file.buffer,
+      metadata
+    );
     const downloadURL = await getDownloadURL(snapshot.ref);
 
     const newCriminal = await Criminal.create({
@@ -127,8 +137,10 @@ exports.getCriminalsByCaseId = async (req, res) => {
 
 const giveCurrentDateTime = () => {
   const today = new Date();
-  const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-  const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-  const dateTime = date + ' ' + time;
+  const date =
+    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+  const time =
+    today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  const dateTime = date + " " + time;
   return dateTime;
 };
