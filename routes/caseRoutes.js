@@ -1,8 +1,12 @@
 const express = require("express");
 const router = express.Router();
+const multer = require('multer');
 const caseController = require("../controllers/caseContoller");
 
-router.post("/cases", caseController.createCase);
+// Setting up multer as a middleware to grab photo uploads
+const upload = multer({storage: multer.memoryStorage() });
+
+router.post("/cases", upload.single('image'), caseController.createCase);
 router.get("/cases", caseController.getCases);
 router.get("/cases/:id", caseController.getCaseById);
 

@@ -1,4 +1,12 @@
+const { initializeApp } = require("firebase/app");
+const { getStorage, ref, getDownloadURL, uploadBytesResumable } = require("firebase/storage");
+const config = require("../config/firebase.config");
 const Case = require("../models/case");
+
+//Initializing a firebase app
+initializeApp(config.firebaseConfig);
+
+const storage = getStorage();
 
 exports.createCase = async (req, res) => {
   try {
@@ -17,6 +25,17 @@ exports.createCase = async (req, res) => {
       suspect,
     } = req.body;
 
+    const file = req.file;
+
+    const dateTime = giveCurrentDateTime();
+
+    const storageRef = ref(storage, `files/${file.originalname + "-" +dateTime }`);
+    const metadata = {
+      contentType: file.mimetype,
+    };
+    const snapshot = await uploadBytesResumable(storageRef, file.buffer, metadata);
+    const downloadURL = await getDownloadURL(snapshot.ref);
+
     const newCase = await Case.create({
       title,
       description,
@@ -30,6 +49,7 @@ exports.createCase = async (req, res) => {
       email,
       timeOfCrime,
       suspect,
+      imageURL: downloadURL,
     });
 
     res.status(201).json({ message: "Case registered successfully" });
@@ -118,4 +138,12 @@ exports.updateCaseData = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+};
+
+const giveCurrentDateTime = () => {
+  const today = new Date();
+  const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+  const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  const dateTime = date + ' ' + time;
+  return dateTime;
 };

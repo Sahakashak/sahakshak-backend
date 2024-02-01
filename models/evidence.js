@@ -34,6 +34,10 @@ const evidenceSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+  imageURL: {
+    type: String,
+    required: true,
+  }
 });
 
 const Evidence = mongoose.model("Evidence", evidenceSchema);

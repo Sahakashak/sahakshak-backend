@@ -1,9 +1,13 @@
 const express = require("express");
 const router = express.Router();
+const multer = require('multer');
 const evidenceController = require("../controllers/evidenceController");
 
+// Setting up multer as a middleware to grab photo uploads
+const upload = multer({storage: multer.memoryStorage() });
+
 // Create a new evidence
-router.post("/evidence", evidenceController.createEvidence);
+router.post("/evidence", upload.single('image'), evidenceController.createEvidence);
 
 // Get all evidence
 router.get("/evidence", evidenceController.getEvidence);

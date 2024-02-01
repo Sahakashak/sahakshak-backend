@@ -57,6 +57,10 @@ const caseSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  imageURL: {
+    type: String,
+    required: true,
+  }
 });
 
 caseSchema.statics.updateCaseDataById = async function (caseId, newData) {

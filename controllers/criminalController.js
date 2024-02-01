@@ -5,7 +5,6 @@ const {
   getDownloadURL,
   uploadBytesResumable,
 } = require("firebase/storage");
-const multer = require("multer");
 const config = require("../config/firebase.config");
 const Criminal = require("../models/criminal");
 
