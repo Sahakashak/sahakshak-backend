@@ -35,18 +35,20 @@ This is the backend of our project sahakshak. Sahakshak is a service for police 
 
 ## Criminal Routes
 
-| Endpoint             | Method | Description                                 | Request Body |
-| -------------------- | ------ | ------------------------------------------- | ------------ |
-| `/api/criminals`     | POST   | Create a new criminal record                | See below    |
-| `/api/criminals`     | GET    | Retrieve all criminals stored in the system | N/A          |
-| `/api/criminals/:id` | GET    | Retrieve a single criminal by ID            | N/A          |
-| `/api/criminals/:id` | PUT    | Update a criminal by ID                     | See below    |
-| `/api/criminals/:id` | DELETE | Delete a criminal by ID                     | N/A          |
+| Endpoint                      | Method | Description                                 | Request Body |
+| ----------------------------- | ------ | ------------------------------------------- | ------------ |
+| `/api/criminals`              | POST   | Create a new criminal record                | See below    |
+| `/api/criminals`              | GET    | Retrieve all criminals stored in the system | N/A          |
+| `/api/criminals/:id`          | GET    | Retrieve a single criminal by ID            | N/A          |
+| `/api/criminals/:id`          | PUT    | Update a criminal by ID                     | See below    |
+| `/api/criminals/:id`          | DELETE | Delete a criminal by ID                     | N/A          |
+| `/api/criminals/case/:caseId` | GET    | Retrieve criminals by case ID               | N/A          |
 
 ### Request Body for Creating a Criminal
 
 ```json
 {
+  "caseId": "MongoDB ObjectID of the related case",
   "name": "String",
   "gender": "String (Male/Female/Other)",
   "age": "Number",
