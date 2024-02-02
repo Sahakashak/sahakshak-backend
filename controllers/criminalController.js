@@ -83,16 +83,36 @@ exports.updateCriminal = async (req, res) => {
   try {
     const criminalId = req.params.id;
     const updatedData = req.body;
+    const file = req.file; // New image file, if provided
+
+    // Check if criminal exists
+    const existingCriminal = await Criminal.findById(criminalId);
+    if (!existingCriminal) {
+      return res.status(404).json({ error: "Criminal not found" });
+    }
+
+    // Update the criminal data
+    let updatedCriminalData;
+    if (file) {
+      const dateTime = giveCurrentDateTime();
+      const storageRef = ref(storage, `files/${file.originalname + "-" + dateTime}`);
+      const metadata = {
+        contentType: file.mimetype,
+      };
+      const snapshot = await uploadBytesResumable(storageRef, file.buffer, metadata);
+      updatedCriminalData = {
+        ...updatedData,
+        imageURL: await getDownloadURL(snapshot.ref),
+      };
+    } else {
+      updatedCriminalData = updatedData;
+    }
 
     const updatedCriminal = await Criminal.findByIdAndUpdate(
       criminalId,
-      updatedData,
+      updatedCriminalData,
       { new: true }
     );
-
-    if (!updatedCriminal) {
-      return res.status(404).json({ error: "Criminal not found" });
-    }
 
     res.status(200).json(updatedCriminal);
   } catch (error) {

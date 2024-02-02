@@ -13,6 +13,6 @@ router.get("/cases/:id", caseController.getCaseById);
 // Get cases by phone number
 router.get("/cases/phone/:phoneNumber", caseController.getCasesByPhoneNumber);
 router.delete("/cases/:id", caseController.deleteCaseById);
-router.put("/cases/:id", caseController.updateCaseData);
+router.put("/cases/:id", upload.single('image'), caseController.updateCaseData);
 
 module.exports = router;

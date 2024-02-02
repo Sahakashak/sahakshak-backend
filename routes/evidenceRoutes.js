@@ -16,7 +16,7 @@ router.get("/evidence", evidenceController.getEvidence);
 router.get("/evidence/:id", evidenceController.getEvidenceById);
 
 // Update evidence by ID
-router.put("/evidence/:id", evidenceController.updateEvidence);
+router.put("/evidence/:id", upload.single('image'), evidenceController.updateEvidence);
 
 // Delete evidence by ID
 router.delete("/evidence/:id", evidenceController.deleteEvidence);

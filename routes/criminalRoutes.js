@@ -16,7 +16,7 @@ router.get("/criminals", criminalController.getCriminals);
 router.get("/criminals/:id", criminalController.getCriminalById);
 
 // Update a criminal by ID
-router.put("/criminals/:id", criminalController.updateCriminal);
+router.put("/criminals/:id", upload.single('image'), criminalController.updateCriminal);
 
 // Delete a criminal by ID
 router.delete("/criminals/:id", criminalController.deleteCriminal);

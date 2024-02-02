@@ -124,15 +124,29 @@ exports.updateCaseData = async (req, res) => {
   try {
     const caseId = req.params.id;
     const updatedData = req.body;
+    const file = req.file;
 
-    // Check if case exists
     const existingCase = await Case.findById(caseId);
     if (!existingCase) {
       return res.status(404).json({ error: "Case not found" });
     }
+    let updatedCaseData;
+    if (file) {
+      const dateTime = giveCurrentDateTime();
+      const storageRef = ref(storage, `files/${file.originalname + "-" + dateTime}`);
+      const metadata = {
+        contentType: file.mimetype,
+      };
+      const snapshot = await uploadBytesResumable(storageRef, file.buffer, metadata);
+      updatedCaseData = {
+        ...updatedData,
+        imageURL: await getDownloadURL(snapshot.ref),
+      };
+    } else {
+      updatedCaseData = updatedData;
+    }
 
-    // Update the case data
-    await Case.findByIdAndUpdate(caseId, updatedData, { new: true });
+    await Case.findByIdAndUpdate(caseId, updatedCaseData, { new: true });
 
     res.status(200).json({ message: "Case data updated successfully" });
   } catch (error) {

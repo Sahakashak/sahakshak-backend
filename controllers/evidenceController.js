@@ -66,14 +66,39 @@ exports.getEvidenceById = async (req, res) => {
 // Update evidence by ID
 exports.updateEvidence = async (req, res) => {
   try {
-    const updatedEvidence = await Evidence.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
-    if (!updatedEvidence) {
+    const evidenceId = req.params.id;
+    const updatedData = req.body;
+    const file = req.file; // New image file, if provided
+
+    // Check if evidence exists
+    const existingEvidence = await Evidence.findById(evidenceId);
+    if (!existingEvidence) {
       return res.status(404).json({ error: "Evidence not found" });
     }
+
+    // Update the evidence data
+    let updatedEvidenceData;
+    if (file) {
+      const dateTime = giveCurrentDateTime();
+      const storageRef = ref(storage, `files/${file.originalname + "-" + dateTime}`);
+      const metadata = {
+        contentType: file.mimetype,
+      };
+      const snapshot = await uploadBytesResumable(storageRef, file.buffer, metadata);
+      updatedEvidenceData = {
+        ...updatedData,
+        imageURL: await getDownloadURL(snapshot.ref),
+      };
+    } else {
+      updatedEvidenceData = updatedData;
+    }
+
+    const updatedEvidence = await Evidence.findByIdAndUpdate(
+      evidenceId,
+      updatedEvidenceData,
+      { new: true }
+    );
+
     res.status(200).json(updatedEvidence);
   } catch (error) {
     res.status(500).json({ error: error.message });
