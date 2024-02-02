@@ -1,13 +1,17 @@
 const express = require("express");
 const router = express.Router();
-const multer = require('multer');
+const multer = require("multer");
 const criminalController = require("../controllers/criminalController");
 
 // Setting up multer as a middleware to grab photo uploads
-const upload = multer({storage: multer.memoryStorage() });
+const upload = multer({ storage: multer.memoryStorage() });
 
 // Create a new criminal
-router.post("/criminals", upload.single('image'), criminalController.createCriminal);
+router.post(
+  "/criminals",
+  upload.single("image"),
+  criminalController.createCriminal
+);
 
 // Get all criminals
 router.get("/criminals", criminalController.getCriminals);
