@@ -8,7 +8,7 @@ const {
 const config = require("../config/firebase.config");
 const Case = require("../models/case");
 
-//Initializing a firebase app
+// Initializing a firebase app
 initializeApp(config.firebaseConfig);
 
 const storage = getStorage();
@@ -30,23 +30,22 @@ exports.createCase = async (req, res) => {
       suspect,
     } = req.body;
 
-    const file = req.file;
+    let imageURL = null; // Initialize imageURL with null
 
-    const dateTime = giveCurrentDateTime();
+    if (req.file) {
+      // File is present, process the file
+      const file = req.file;
 
-    const storageRef = ref(
-      storage,
-      `files/${file.originalname + "-" + dateTime}`
-    );
-    const metadata = {
-      contentType: file.mimetype,
-    };
-    const snapshot = await uploadBytesResumable(
-      storageRef,
-      file.buffer,
-      metadata
-    );
-    const downloadURL = await getDownloadURL(snapshot.ref);
+      const dateTime = giveCurrentDateTime();
+
+      const storageRef = ref(storage, `files/${file.originalname}-${dateTime}`);
+      const metadata = {
+        contentType: file.mimetype,
+      };
+
+      const snapshot = await uploadBytesResumable(storageRef, file.buffer, metadata);
+      imageURL = await getDownloadURL(snapshot.ref); // Ensure to use the correct storageRef here
+    }
 
     const newCase = await Case.create({
       title,
@@ -61,7 +60,7 @@ exports.createCase = async (req, res) => {
       email,
       timeOfCrime,
       suspect,
-      imageURL: downloadURL,
+      imageURL, // Assign imageURL here
     });
 
     res.status(201).json({ message: "Case registered successfully" });

@@ -17,23 +17,23 @@ const storage = getStorage();
 exports.createCriminal = async (req, res) => {
   try {
     const { name, gender, age, address, crime, status, caseId } = req.body;
-    const file = req.file;
 
-    const dateTime = giveCurrentDateTime();
+    let imageURL = null; // Initialize imageURL with null
 
-    const storageRef = ref(
-      storage,
-      `files/${file.originalname + "-" + dateTime}`
-    );
-    const metadata = {
-      contentType: file.mimetype,
-    };
-    const snapshot = await uploadBytesResumable(
-      storageRef,
-      file.buffer,
-      metadata
-    );
-    const downloadURL = await getDownloadURL(snapshot.ref);
+    if (req.file) {
+      // File is present, process the file
+      const file = req.file;
+
+      const dateTime = giveCurrentDateTime();
+
+      const storageRef = ref(storage, `files/${file.originalname}-${dateTime}`);
+      const metadata = {
+        contentType: file.mimetype,
+      };
+
+      const snapshot = await uploadBytesResumable(storageRef, file.buffer, metadata);
+      imageURL = await getDownloadURL(snapshot.ref); // Ensure to use the correct storageRef here
+    }
 
     const newCriminal = await Criminal.create({
       name,
@@ -43,7 +43,7 @@ exports.createCriminal = async (req, res) => {
       crime,
       status,
       caseId,
-      imageURL: downloadURL,
+      imageURL,
     });
 
     res.status(201).json(newCriminal);
