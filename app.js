@@ -6,6 +6,7 @@ const caseRoutes = require("./routes/caseRoutes");
 const criminalRoutes = require("./routes/criminalRoutes.js");
 const evidenceRoutes = require("./routes/evidenceRoutes.js");
 const timeoutMiddleware = require("./Middleware/timeout");
+const otpController = require('./controllers/otpController');
 
 const app = express();
 
@@ -20,9 +21,13 @@ app.use("/api", caseRoutes);
 app.use("/api", criminalRoutes);
 app.use("/api", evidenceRoutes);
 
+
 app.get("/", (req, res) => {
   res.send("API working");
 });
+
+//otp route
+app.post("/send-otp", otpController.sendOtp);
 
 // Connect to MongoDB
 
